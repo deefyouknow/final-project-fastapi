@@ -9,3 +9,6 @@ def index():
     }
     
 app.include_router(router)
+
+from routers import user_router
+app.include_router(user_router.router)

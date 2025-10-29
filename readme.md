@@ -1,6 +1,6 @@
 # **การเขียน API ด้วย FastAPI**
 
-### **ติดตั้ง** venv **ด้วย**คำสั่ง
+### **ติดตั้ง** Virtual Environment (venv)
 
 - คำสั่งด้านล่างหมายถึง**การ**สร้าง virtual environment ที่ชื่อ .venv
 - venv to .venv จะ**ได้**โฟลเดอร์ .venv ที่มีไฟล์ .venv/bin/activate ไว้ใช้ในการ**เปิด** virtual environment
@@ -39,11 +39,19 @@ pip install fastapi
 Swagger UI → http://127.0.0.1:8000/docs  
 ReDoc → http://127.0.0.1:8000/redoc 
 
+- **syntax** ของตารางในฐานการรัน FastAPI
+  - **uvicorn** **เป็น**โปรแกรม ASGI ที่รันแอปพลิเคชัน FastAPI
+  - main มา**จาก**ชื่อไฟล main.py
+  - --reload คือ รีโหลดไฟล์**เมื่อ**มีการแก้ไข  
+  - --host คือ **กำ**หนด IP ที่จะ**ใช้**รันเซิฟเวอร์  
+  - --port คือ **กำ**หนด Port ที่จะ**ใช้**รันเซิฟเวอร์  
+  - --workers คือ **กำ**หนดจำนวนโปรเซส หรือ cpu
+
 ```bash
-uvicorn main:app --reload
+uvicorn main:app --reload --host 127.0.0.1 --port 1234 --workers 4
 ```
 
-- Orm จัดการฐานข้อมูลด้วย SQLAlchemy
+- **Orm** จัดการฐานข้อมูลด้วย SQLAlchemy
 
 ```bash
 pip install sqlalchemy

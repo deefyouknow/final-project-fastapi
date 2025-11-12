@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  # ชื่อบริการสำหรับแอปพลิเคชัน FastAPI ของคุณ
+  fastapi-app:
+    # 1. ใช้ Base Image Python
+    image: python:3.11-slim
+    
+    # 2. ตั้งค่า Working Directory
+    working_dir: /app
+    
+    # 3. แมปโวลุ่ม (คัดลอกไฟล์ทั้งหมดจาก . เข้าไปใน /app)
+    # ไฟล์ requirements.txt, main.py, และโฟลเดอร์ components จะถูกเมาท์ที่นี่
+    volumes:
+      - .:/app
+      
+    # 4. แมปพอร์ต: 8000 บนโฮสต์ ไปที่ 8000 ในคอนเทนเนอร์
+    ports:
+      - "8000:8000"
+      
+    # 5. คำสั่งที่จะรันเมื่อคอนเทนเนอร์เริ่มต้น
+    # คำสั่งนี้จะ:
+    # a. ติดตั้งแพ็กเกจจาก requirements.txt
+    # b. รัน Uvicorn โดยชี้ไปที่ main.py (สมมติว่า object FastAPI ถูกตั้งชื่อว่า 'app' ในไฟล์ main.py)
+    command: >
+      sh -c "pip install --no-cache-dir -r requirements.txt && 
+             uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
+             
+    # สามารถเพิ่ม environment variables สำหรับฐานข้อมูลได้ที่นี่ หากต้องการ
+    # environment:
+    #   - DATABASE_URL=postgresql://user:password@db:5432/mydatabase
+    
+    restart: always

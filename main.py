@@ -23,3 +23,6 @@ app.include_router(Users.router)
 
 from components.routers import aiforthai
 app.include_router(aiforthai.router)
+
+from components.routers import luxall
+app.include_router(luxall.router)

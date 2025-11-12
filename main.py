@@ -7,6 +7,14 @@ app = FastAPI(
     redoc_url=None
 )
 router = APIRouter()
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # หรือระบุเฉพาะ React URL
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # -----------------------
 from components.database import Base, Mysql_Engine

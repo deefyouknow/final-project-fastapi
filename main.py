@@ -1,16 +1,25 @@
-from fastapi import FastAPI, APIRouter , Depends, HTTPException, status
-from fastapi.security import HTTPBasic, HTTPBasicCredentials
-app = FastAPI(title="ProjectOne2025", description="API for ProjectOne2025", version="1.0.0", 
-    contact={"name": "deef", "email": "thanawat.deef@gmail.com"},
+from fastapi import FastAPI, APIRouter
+app = FastAPI(
+    title="DEEF",
+    description="DEEF is a fastapi project",
+    version="0.0.1",
     docs_url=None,
     redoc_url=None
 )
 router = APIRouter()
 
-from utils import apilogin
-app.include_router(apilogin.router)
+# -----------------------
+from components.database import Base, Mysql_Engine
+from components.models import alchemymodels
+# เรียกคำสั่งนี้ 1 ครั้ง เพื่อสร้างตารางทั้งหมดที่สืบทอดจาก Base
+Base.metadata.create_all(bind=Mysql_Engine)
+# -----------------------
 
-app.include_router(router)
+from components.utils import apiLogin
+app.include_router(apiLogin.router)
 
-from routers import user_router
-app.include_router(user_router.router)
+from components.routers import Users
+app.include_router(Users.router)
+
+from components.routers import aiforthai
+app.include_router(aiforthai.router)

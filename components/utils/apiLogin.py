@@ -4,7 +4,7 @@ from fastapi import FastAPI, APIRouter , Depends, HTTPException, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 
 security = HTTPBasic()
-router = APIRouter()
+router = APIRouter(tags=["Login"])
 
 from dotenv import load_dotenv
 import os
